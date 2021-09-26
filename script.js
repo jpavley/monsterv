@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = 500;
@@ -55,6 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
         draw(ctx) {
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
+    }
+
+    class Worm extends Enemy {
+        
     }
 
     const game = new Game(ctx, canvas.width, canvas.height);
