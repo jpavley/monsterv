@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
             this.enemyTimer = 0;
         }
         update(deltaTime) {
-            this.enemies = this.enemies.filter(object => !object.markedForDeletion);
+            // update every 1000ms
             if (this.enemyTimer > this.enemyInterval) {
+                this.enemies = this.enemies.filter(object => !object.markedForDeletion);
                 this.#addNewEnemy();
                 this.enemyTimer = 0;
                 console.log(this.enemies)
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.enemyTimer += deltaTime;
             }
 
+            // update every frame (like every 16ms)
             this.enemies.forEach(object => object.update());
         }
         draw() {
