@@ -10,7 +10,7 @@ window.addEventListener('load', function() {
             this.width = width;
             this.height = height;
             this.enemies = [];
-            this.enemyInterval = 1000;
+            this.enemyInterval = 100;
             this.enemyTimer = 0;
         }
         update(deltaTime) {
@@ -32,6 +32,9 @@ window.addEventListener('load', function() {
         }
         #addNewEnemy() {
             this.enemies.push(new Worm(this));
+            this.enemies.sort(function(a,b) {
+                return a.y - b.y;
+            });
         }
     }
 
