@@ -29,6 +29,15 @@ window.addEventListener('load', function() {
             this.enemies.forEach(object => object.update(deltaTime));
         }
         draw() {
+            ctx.save();
+            const background = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            background.addColorStop(0.0, "orange");
+            background.addColorStop(0.5, "black");
+            background.addColorStop(1.0, "blue");
+            ctx.fillStyle = background;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.restore;
+
             this.enemies.forEach(object => object.draw(this.ctx));
         }
         #addNewEnemy() {
