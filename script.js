@@ -156,6 +156,10 @@ window.addEventListener('load', function() {
         }
         update(deltaTime) {
             super.update(deltaTime);
+            if (this.y < 0 - this.height * 2) {
+                // remove from game
+                this.markedForDeletion = true;
+            }
             this.y += this.vy * deltaTime;
             if (this.y > this.maxLength) {
                 this.vy *= -1; // transform to negative
