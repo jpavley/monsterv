@@ -12,7 +12,7 @@ window.addEventListener('load', function() {
             this.enemies = [];
             this.enemyInterval = 500;
             this.enemyTimer = 0;
-            this.enemyTypes = ['worm', 'ghost'];
+            this.enemyTypes = ['worm', 'ghost', 'spider'];
         }
         update(deltaTime) {
             // update every 1000ms
@@ -38,6 +38,8 @@ window.addEventListener('load', function() {
                 this.enemies.push(new Worm(this));
             } else if (randomEnemy == 'ghost') {
                 this.enemies.push(new Ghost(this));
+            } else if (randomEnemy == 'spider') {
+                this.enemies.push(new Spider(this));
             }
             this.enemies.sort(function(a,b) {
                 return a.y - b.y;
@@ -105,11 +107,46 @@ window.addEventListener('load', function() {
             this.y += Math.sin(this.angle) * this.curve;
             this.angle += 0.1;
         }
-        draw() {
+        draw(ctx) {
             ctx.save();
             ctx.globalAlpha = 0.7;
             super.draw(ctx);
             ctx.restore();
+        }
+    }
+
+    class Spider extends Enemy {
+        constructor(game) {
+            super(game); // super before using "this"
+
+            this.spriteWidth = 310;
+            this.spriteHeight = 175;      
+
+            this.width = this.spriteWidth/3;
+            this.height = this.spriteHeight/3;
+
+            this.x = this.game.width * Math.random();
+            this.y = 0 - this.height;
+
+            this.image = spider;
+            this.vx = 0
+            this.vy = Math.random() * 0.1 + 0.1;
+            this.maxLength = Math.random() * this.game.height;
+        }
+        update(deltaTime) {
+            super.update(deltaTime);
+            this.y += this.vy * deltaTime;
+            if (this.y > this.maxLength) {
+                this.vy *= -1; // transform to negative
+            }
+        }
+        draw(ctx) {
+            ctx.beginPath();
+            const lineX = this.x + (this.width / 2);
+            ctx.moveTo(lineX, 0);
+            ctx.lineTo(lineX, this.y + 10);
+            ctx.stroke();
+            super.draw(ctx);
         }
     }
 
