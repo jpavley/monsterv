@@ -51,6 +51,11 @@ window.addEventListener('load', function() {
         constructor(game) {
             this.game = game;
             this.markedForDeletion = false;
+
+            this.frameX = 0;
+            this.maxFrame = 5;
+            this.frameInterval = 150;
+            this.frameTimer = 0;
         }
         update(deltaTime) {
             this.x -= this.vx * deltaTime;
@@ -59,9 +64,25 @@ window.addEventListener('load', function() {
             if (this.x < 0 - this.width) {
                 this.markedForDeletion = true;
             }
+
+            // animate frame
+            if (this.frameTimer > this.frameInterval) {
+                if (this.frameX < this.maxFrame) {
+                    // advance animation frame
+                    this.frameX += 1;
+                } else {
+                    // reset animation frame
+                    this.frameX = 0;
+                }
+                // reset frame timer
+                this.frameTimer = 0;
+            } else {
+                this.frameTimer += deltaTime;
+            }
         }
         draw(ctx) {
-            ctx.drawImage(this.image, 0, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
+            const sourceX = this.frameX * this.spriteWidth;
+            ctx.drawImage(this.image, sourceX, 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
         }
     }
 
