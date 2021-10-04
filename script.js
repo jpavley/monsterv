@@ -18,7 +18,7 @@ window.addEventListener('load', function() {
             // update every 1000ms
             if (this.enemyTimer > this.enemyInterval) {
                 this.enemies = this.enemies.filter(object => !object.markedForDeletion);
-                this.#addNewEnemy();
+                this.addNewEnemy();
                 this.enemyTimer = 0;
                 console.log(this.enemies)
             } else {
@@ -40,7 +40,7 @@ window.addEventListener('load', function() {
 
             this.enemies.forEach(object => object.draw(this.ctx));
         }
-        #addNewEnemy() {
+        addNewEnemy() {
             const r = Math.floor(Math.random() * this.enemyTypes.length);
             const randomEnemy = this.enemyTypes[r];
             if (randomEnemy == 'worm') {
